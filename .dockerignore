@@ -6,3 +6,5 @@ build
 Dockerfile
 .dockerignore
 README.md
+*js
+*json
