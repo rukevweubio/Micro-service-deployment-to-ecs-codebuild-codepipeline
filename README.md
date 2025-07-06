@@ -118,6 +118,9 @@ deploy:
     only:
         - main
 ```
+![gitlab workflow](https://github.com/rukevweubio/Micro-service-deployment-to-ecs-codebuild-codepipeline/blob/main/screenshoot/Screenshot%20(1290).png)
+![gitlab workflow](https://github.com/rukevweubio/Micro-service-deployment-to-ecs-codebuild-codepipeline/blob/main/screenshoot/Screenshot%20(1292).png)
+
 
 **Explanation:**
 - **build:** Builds the Docker image using the latest commit SHA as the tag.
@@ -151,7 +154,7 @@ EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
 ```
-
+![docker image](https://github.com/rukevweubio/Micro-service-deployment-to-ecs-codebuild-codepipeline/blob/main/screenshoot/Screenshot%20(1293).png)
 **Explanation:**  
 Defines a lightweight Node.js environment, installs dependencies, copies source code, exposes port 8080, and starts the application.
 
