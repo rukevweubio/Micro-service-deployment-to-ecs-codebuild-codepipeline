@@ -158,6 +158,8 @@ CMD ["nginx", "-g", "daemon off;"]
 **Explanation:**  
 Defines a lightweight Node.js environment, installs dependencies, copies source code, exposes port 8080, and starts the application.
 
+![ gks cluster](https://github.com/rukevweubio/Micro-service-deployment-to-ecs-codebuild-codepipeline/blob/main/screenshoot/Screenshot%20(1308).png)
+
 ### `k8s/deployment.yaml` (Sample)
 
 ```yaml
