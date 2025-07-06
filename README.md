@@ -165,19 +165,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: your-deployment
-    namespace: your-namespace
+    namespace: dev
 spec:
     replicas: 2
     selector:
         matchLabels:
-            app: your-app
+            app: nodeja-app
     template:
         metadata:
             labels:
-                app: your-app
+                app: nodejs-app
         spec:
             containers:
-                - name: your-container
+                - name: nodejs-app-design
                     image: rukevweubio/nodejs-app-design:latest
                     ports:
                         - containerPort: 8080
@@ -186,6 +186,9 @@ spec:
 **Explanation:**  
 Defines a Kubernetes deployment with two replicas, specifying the Docker image and exposed port.
 ![ kubernates cluster](https://github.com/rukevweubio/Micro-service-deployment-to-ecs-codebuild-codepipeline/blob/main/screenshoot/Screenshot%20(1300).png)
+
+### nodejs app
+![nodejs-app-deploymnet](https://github.com/rukevweubio/Micro-service-deployment-to-ecs-codebuild-codepipeline/blob/main/screenshoot/Screenshot%20(1310).png)
 
 ## Additional Recommendations
 
