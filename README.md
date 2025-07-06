@@ -14,9 +14,7 @@ Deploying microservices manually involves several repetitive and error-prone ste
 The project aims to solve these issues by introducing automation at every stage of the deployment process.
 
 ## Solution Approach
-
 The solution leverages the following technologies and practices:
-
 1. **Source Code Management:** All application code, Dockerfiles, and Kubernetes manifests are stored in a GitLab repository for version control and collaboration.
 2. **Continuous Integration (CI):** GitLab CI/CD is used to automatically build and test the microservice on every commit or merge to the main branch.
 3. **Dockerization:** The application is containerized using Docker, ensuring consistency across development, testing, and production environments.
@@ -30,8 +28,8 @@ The solution leverages the following technologies and practices:
 Start by cloning the project repository from GitLab:
 
 ```bash
-git clone https://gitlab.com/your-username/your-repo.git
-cd your-repo
+git clonehttps://github.com/rukevweubio/Micro-service-deployment-to-ecs-codebuild-codepipeline
+cd Micro-service-deployment-to-ecs-codebuild-codepipeline
 ```
 
 ### 2. Build and Test Locally
@@ -39,8 +37,8 @@ cd your-repo
 Before pushing changes, you can build and run the Docker image locally to verify functionality:
 
 ```bash
-docker build -t your-dockerhub-username/your-image-name:latest .
-docker run -p 8080:8080 your-dockerhub-username/your-image-name:latest
+docker build -t rukevweubio/nodejs-app-design:latest .
+docker run -p 8080:8080 rukevweubio/nodejs-app-design:latest
 ```
 
 ### 3. Configure GitLab CI/CD
@@ -103,8 +101,8 @@ push:
         - docker:dind
     script:
         - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-        - docker tag $IMAGE_TAG your-dockerhub-username/your-image-name:$CI_COMMIT_SHORT_SHA
-        - docker push your-dockerhub-username/your-image-name:$CI_COMMIT_SHORT_SHA
+        - docker tag $IMAGE_TAG rukevweubio/nodejs-app-design:$CI_COMMIT_SHORT_SHA
+        - docker push rukevweubio/nodejs-app-design:$CI_COMMIT_SHORT_SHA
     only:
         - main
 
@@ -116,7 +114,7 @@ deploy:
         - gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
         - gcloud config set project $GCP_PROJECT_ID
         - gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE
-        - kubectl set image deployment/your-deployment your-container=your-dockerhub-username/your-image-name:$CI_COMMIT_SHORT_SHA -n your-namespace
+        - kubectl set image deployment/nodejs-app =rukevweubio/nodejs-app-designe:$CI_COMMIT_SHORT_SHA -n dev
     only:
         - main
 ```
@@ -129,13 +127,29 @@ deploy:
 ### `Dockerfile` (Sample)
 
 ```dockerfile
-FROM node:18-alpine
+# Stage 1: Build the React application
+FROM node:20-alpine AS builder
+
 WORKDIR /app
+
+# Install dependencies
 COPY package*.json ./
 RUN npm install
+
+# Copy source code
 COPY . .
-EXPOSE 8080
-CMD ["npm", "start"]
+
+# Build the app
+RUN npm run build
+
+# Stage 2: Serve using Nginx
+FROM nginx:stable-alpine
+
+COPY --from=builder /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
 ```
 
 **Explanation:**  
@@ -161,7 +175,7 @@ spec:
         spec:
             containers:
                 - name: your-container
-                    image: your-dockerhub-username/your-image-name:latest
+                    image: rukevweubio/nodejs-app-design:latest
                     ports:
                         - containerPort: 8080
 ```
