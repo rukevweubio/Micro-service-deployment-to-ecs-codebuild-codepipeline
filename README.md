@@ -185,6 +185,7 @@ spec:
 
 **Explanation:**  
 Defines a Kubernetes deployment with two replicas, specifying the Docker image and exposed port.
+![ kubernates cluster](https://github.com/rukevweubio/Micro-service-deployment-to-ecs-codebuild-codepipeline/blob/main/screenshoot/Screenshot%20(1300).png)
 
 ## Additional Recommendations
 
